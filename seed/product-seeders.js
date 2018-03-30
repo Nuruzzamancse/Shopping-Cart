@@ -1,0 +1,44 @@
+var Product = require('../models/product');
+
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://bloglast:bloglast@ds119014.mlab.com:19014/bloglast');
+
+
+var products = [
+        new Product({
+        imagePath: 'https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png',
+        title: 'Gothic Video Game',
+        description: 'Awesome Game!!!!',
+        price: 10
+    }),
+    new Product({
+        imagePath: 'https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png',
+        title: 'Gothic Video Game 2',
+        description: 'Awesome Game!!!!',
+        price: 102
+    }),
+
+    new Product({
+        imagePath: 'https://upload.wikimedia.org/wikipedia/en/5/5e/Gothiccover.png',
+        title: 'Gothic Video Game3',
+        description: 'Awesome Game!!!!',
+        price: 103
+    })
+];
+
+var done = 0;
+
+for(var i=0; i<products.length; i++){
+    products[i].save(function (err,result) {
+        done++;
+        if(done == products.length){
+            exit();
+        }
+    })
+}
+
+function exit() {
+    mongoose.disconnect();
+}
+
